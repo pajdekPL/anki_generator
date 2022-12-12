@@ -17,8 +17,10 @@ jobs:
           pip3 install -r requirements-ci.txt
       - name: static analysis
         run: |
+          cd anki_generator_app
           flake8
       - name: Unit and integration tests
         run: |
+          cd anki_generator_app
           pytest
       - run: echo "🍏 This job's status is ${{ job.status }}."
