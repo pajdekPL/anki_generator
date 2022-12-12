@@ -1,0 +1,26 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [push]
+jobs:
+  Static-analysis-and-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: Install dependencies
+        run: |
+          cd anki_generator_app
+          pip3 install -r requirements.txt
+          pip3 install -r requirements-ci.txt
+      - name: static analysis
+        run: |
+          cd anki_generator_app
+          flake8
+      - name: Unit and integration tests
+        run: |
+          cd anki_generator_app
+          pytest
+      - run: echo "🍏 This job's status is ${{ job.status }}."
