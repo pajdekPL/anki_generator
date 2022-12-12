@@ -4,10 +4,15 @@ from anki_generator_app.dictionaries import get_dictionary_handler, CambridgeDic
 from .data.words_meanings import prudent_meanings
 
 
-@pytest.mark.parametrize("word_html_file_path, expected_meanings", [
-    (Path("tests/data/prudent.html"), prudent_meanings),
-])
-def test_proper_dict_handler_is_used_andword_meanings_are_properly_parsed(word_html_file_path, expected_meanings):
+@pytest.mark.parametrize(
+    "word_html_file_path, expected_meanings",
+    [
+        (Path("tests/data/prudent.html"), prudent_meanings),
+    ],
+)
+def test_proper_dict_handler_is_used_andword_meanings_are_properly_parsed(
+    word_html_file_path, expected_meanings
+):
     dictionary = "cambridge"
     cambridge_dict = get_dictionary_handler(dictionary)
 

@@ -35,13 +35,23 @@ class AnkiGenerator:
                 word_webpage = get_webpage_content(self.dictionary.get_word_url(word))
                 meanings = self.dictionary.get_word_meanings(word_webpage)
                 ipa = self.dictionary.get_ipa(word_webpage)
-                examples_of_usage = self.dictionary.get_word_examples_of_usage(word_webpage)
+                examples_of_usage = self.dictionary.get_word_examples_of_usage(
+                    word_webpage
+                )
                 media_file_name = f"{word}.mp3"
-                mp3_media_file_path = Path(temp_dir)/media_file_name
-                mp3_media_url = self.dictionary.get_word_us_pronunciation_url(word_webpage)
+                mp3_media_file_path = Path(temp_dir) / media_file_name
+                mp3_media_url = self.dictionary.get_word_us_pronunciation_url(
+                    word_webpage
+                )
                 download_file(mp3_media_url, mp3_media_file_path)
-                self.anki_handler.add_vocab_flashcard_to_deck(mp3_media_file_path, word, meanings,
-                                                              examples_of_usage, ipa, media_file_name)
+                self.anki_handler.add_vocab_flashcard_to_deck(
+                    mp3_media_file_path,
+                    word,
+                    meanings,
+                    examples_of_usage,
+                    ipa,
+                    media_file_name,
+                )
             self.anki_handler.save_apkg_anki_file(output_file)
 
 

@@ -8,14 +8,22 @@ import tempfile
 
 def test_anki_flashcard_is_properly_generated_for_word_prudent(mocked_requests):
     data_path = Path(os.path.dirname(os.path.realpath(__file__))) / "data"
-    headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) '
-               'Chrome/51.0.2704.103 Safari/537.36'}
+    headers = {
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/51.0.2704.103 Safari/537.36"
+    }
     deck_name = "TestDeck"
     expected_apkg_file_size = 57
     word = "prudent"
     requests_get_expected_calls = [
-        call('https://dictionary.cambridge.org/dictionary/english/prudent', headers=headers),
-        call('https://dictionary.cambridge.org//media/english/us_pron/p/pru/prude/prudent.mp3',headers=headers)
+        call(
+            "https://dictionary.cambridge.org/dictionary/english/prudent",
+            headers=headers,
+        ),
+        call(
+            "https://dictionary.cambridge.org//media/english/us_pron/p/pru/prude/prudent.mp3",
+            headers=headers,
+        ),
     ]
 
     class WordWebPageContent:
