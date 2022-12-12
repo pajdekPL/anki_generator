@@ -7,6 +7,7 @@ import tempfile
 
 
 def test_anki_flashcard_is_properly_generated_for_word_prudent(mocked_requests):
+    data_path = Path(os.path.dirname(os.path.realpath(__file__))) / "data"
     headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) '
                'Chrome/51.0.2704.103 Safari/537.36'}
     deck_name = "TestDeck"
@@ -18,14 +19,12 @@ def test_anki_flashcard_is_properly_generated_for_word_prudent(mocked_requests):
     ]
 
     class WordWebPageContent:
-        web_page_for_word = Path("data/prudent.html")
-        with open(web_page_for_word) as file:
-            content = file.read()
+        web_page_for_word = data_path / "prudent.html"
+        content = web_page_for_word.read_text()
 
     class PrudentMp3:
-        prudent_mp3_file = Path("data/prudent.mp3")
-        with open(prudent_mp3_file, 'rb') as file:
-            content = file.read()
+        prudent_mp3_file = data_path / "prudent.mp3"
+        content = prudent_mp3_file.read_bytes()
 
     mocked_requests.get.side_effect = [WordWebPageContent, PrudentMp3]
 
