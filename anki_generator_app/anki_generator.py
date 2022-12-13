@@ -1,6 +1,6 @@
 import tempfile
 from pathlib import Path
-from anki_generator_app.downloader import get_webpage_content, download_file
+from anki_generator_app.downloader import get_webpage_content, download_file, WebPageContentRequestException
 from anki_generator_app.genanki_handler import GenankiVocabHandler
 from anki_generator_app.dictionaries import get_dictionary_handler
 
@@ -10,7 +10,7 @@ class AnkiGenerator:
     Anki generator, example of usage:
 
     anki_output_file_path = Path("tests/data/my_deck.apkg")
-    anki_generator = AnkiGenerator("TestDeck")
+    anki_generator = AnkiGenerator(deck_name="TestDeck")
     anki_generator.add_word("prudent")
     anki_generator.add_word("deride")
     anki_generator.generate_flashcards(anki_output_file_path)
@@ -24,15 +24,20 @@ class AnkiGenerator:
     def add_word(self, word: str):
         self.words.append(word)
 
-    def add_words_from_txt_file(self, path_to_file: Path):
-        with open(path_to_file) as file:
-            for line in file.readlines():
-                self.add_word(line.lower().strip())
-
     def generate_flashcards(self, output_file: Path):
+        """
+
+        :param output_file:
+        :return: list of words for which flashcards were not generated
+        """
+        problematic_words = []
         with tempfile.TemporaryDirectory() as temp_dir:
             for word in self.words:
-                word_webpage = get_webpage_content(self.dictionary.get_word_url(word))
+                try:
+                    word_webpage = get_webpage_content(self.dictionary.get_word_url(word))
+                except WebPageContentRequestException:
+                    problematic_words.append(word)
+                    continue
                 meanings = self.dictionary.get_word_meanings(word_webpage)
                 ipa = self.dictionary.get_ipa(word_webpage)
                 examples_of_usage = self.dictionary.get_word_examples_of_usage(
@@ -53,11 +58,12 @@ class AnkiGenerator:
                     media_file_name,
                 )
             self.anki_handler.save_apkg_anki_file(output_file)
+        return problematic_words
 
 
 if __name__ == "__main__":
-    words = ["person", "use"]
     anki_output_file_path = Path("tests/data/prudent.apkg")
     anki_generator = AnkiGenerator("TestDeck")
     anki_generator.add_word("prudent")
-    anki_generator.generate_flashcards(anki_output_file_path)
+    anki_generator.add_word("twoj_stary_zajebany")
+    print(anki_generator.generate_flashcards(anki_output_file_path))

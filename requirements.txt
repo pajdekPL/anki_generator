@@ -1,0 +1,4 @@
+genanki
+beautifulsoup4
+Flask
+requests
