@@ -30,6 +30,7 @@ def test_anki_flashcard_is_properly_generated_for_word_prudent(mocked_requests):
         web_page_for_word = data_path / "prudent.html"
         content = web_page_for_word.read_text()
         status_code = 200
+        history = []
 
     class PrudentMp3:
         prudent_mp3_file = data_path / "prudent.mp3"
