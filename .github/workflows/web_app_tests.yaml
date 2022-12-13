@@ -2,7 +2,7 @@ name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
-  Static-analysis-and-tests:
+  Static-analysis-and-tests web_app:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -12,9 +12,8 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: Install dependencies
         run: |
-          cd web_app
           pip3 install -r requirements.txt
-          pip3 install -r requirements-ci.txt
+          pip3 install -r web_app/requirements-ci.txt
       - name: static analysis
         run: |
           cd web_app
