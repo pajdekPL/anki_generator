@@ -18,6 +18,11 @@ def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+@app.route("/examples")
+def examples():
+    return render_template("examples.html")
+
+
 @app.route("/", methods=["GET", "POST"])
 def upload_file():
     if request.method == "POST":
