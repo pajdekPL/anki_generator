@@ -4,15 +4,16 @@
 
 
 {% block main %}
-        <div class="container">
+        <div class="container-fluid">
         <div class="row">
             <div class="col" id="mid">
             </div>
-            <div class="col-6">
+            <div class="col-8">
+                <div class="text-justify">
                 Hello, here you can generate English vocabulary
                 <a href="https://apps.ankiweb.net/">ANKI</a> flashcards from your list of words!
                 <br>
-                The only accepted file format is <b>.txt</b>
+                The only accepted file format is <b>.txt</b>.
                 Words should be separated by newlines or commas.
                 <br>
                 For every word will be generated:
@@ -21,15 +22,16 @@
                 <li>IPA[International Phonetic Alphabet] symbols</li>
                 <br>
                 Currently, all data is download from the <a href="https://dictionary.cambridge.org/">Cambridge dictionary</a>
+                <br>
+                <br>
+                <p>Please provide your txt file and Anki deck name here:</p>
+                </div>
                 <form method=post enctype=multipart/form-data>
-                    <br>
-                    <div class="mb-3">
-                        <input class="form-control mx-auto w-auto" autocomplete="off" name="deck_name" placeholder="Deck Name" type="text">
+                    <div class="form-group">
+                        <input class="form-control" autocomplete="off" name="deck_name" placeholder="Deck Name" type="text">
+                        <input class="form-control" type=file name=file>
+                        <button class="form-control btn btn-primary text-center" type="submit">Generate</button>
                     </div>
-                    <div class="mb-3">
-                        <input class="form-control mx-auto w-auto" type=file name=file>
-                    </div>
-                    <button class="btn btn-primary" type="submit">Generate</button>
                 </form>
                 <div>
                     {% if text %}
