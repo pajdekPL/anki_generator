@@ -21,6 +21,9 @@ def generate_anki(deck_name, words, output_file):
     anki_generator = AnkiGenerator(deck_name)
     for word in words:
         logging.info(f"Adding word {word} to the anki deck")
-        anki_generator.add_word(word)
+        if word not in anki_generator.words:
+            anki_generator.add_word(word)
+        else:
+            logging.info(f"Word: {word} already added to the deck")
     problematic_words = anki_generator.generate_flashcards(output_file)
     return problematic_words
