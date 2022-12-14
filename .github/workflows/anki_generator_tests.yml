@@ -1,4 +1,4 @@
-name: Anki generator static analysis and tests
+name: Anki Generator static analysis and tests
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:

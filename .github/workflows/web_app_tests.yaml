@@ -1,4 +1,5 @@
-name: Web app static analysis and tests
+
+name: WEB-APP Static analysis and tests
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
