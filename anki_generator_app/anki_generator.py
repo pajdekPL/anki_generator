@@ -1,3 +1,4 @@
+import logging
 import tempfile
 from pathlib import Path
 from anki_generator_app.downloader import get_webpage_content, download_file, WebPageContentRequestException
@@ -38,6 +39,7 @@ class AnkiGenerator:
                 except WebPageContentRequestException:
                     problematic_words.append(word)
                     continue
+                logging.info(f"Downloaded data for word: {word}")
                 meanings = self.dictionary.get_word_meanings(word_webpage)
                 ipa = self.dictionary.get_ipa(word_webpage)
                 examples_of_usage = self.dictionary.get_word_examples_of_usage(
@@ -48,6 +50,7 @@ class AnkiGenerator:
                 mp3_media_url = self.dictionary.get_word_us_pronunciation_url(
                     word_webpage
                 )
+                logging.info(f"Downloaded media file for word: {word}")
                 download_file(mp3_media_url, mp3_media_file_path)
                 self.anki_handler.add_vocab_flashcard_to_deck(
                     mp3_media_file_path,

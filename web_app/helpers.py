@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 from anki_generator_app.anki_generator import AnkiGenerator
 
@@ -19,6 +20,7 @@ def parse_text_file_to_words(file_path: Path) -> [str]:
 def generate_anki(deck_name, words, output_file):
     anki_generator = AnkiGenerator(deck_name)
     for word in words:
+        logging.info(f"Adding word {word} to the anki deck")
         anki_generator.add_word(word)
     problematic_words = anki_generator.generate_flashcards(output_file)
     return problematic_words
